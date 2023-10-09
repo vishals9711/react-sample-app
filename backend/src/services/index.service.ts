@@ -16,6 +16,7 @@ class IndexService {
         await new Promise(resolve => setTimeout(resolve, 100));
         io.to(socketId).emit('llmResChunk', { chatID: chatId, content: chatgptResponse.content });
       }
+      io.to(socketId).emit('llmResEnd', { chatID: chatId, content: chatgptResponse.content });
       return { message: 'Res sent', GPTResponse: chatgptResponse, chatID: chatId };
     } catch (error) {
       io.emit('resError', { chatID: chatId, content: chatgptResponse.content });

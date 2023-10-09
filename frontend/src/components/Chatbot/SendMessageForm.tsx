@@ -12,6 +12,7 @@ function SendMessageForm({
   sendMessage: () => void;
   chatEndpointIsLoading: boolean;
 }): React.ReactElement {
+  // Handle Enter key press to send a message
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();

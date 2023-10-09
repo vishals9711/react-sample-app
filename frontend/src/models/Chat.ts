@@ -1,4 +1,4 @@
-export interface SocketChatMesaage {
+export interface SocketChatMessage {
   chatID: string;
   content: string;
 }

@@ -6,22 +6,27 @@ import Card from '../components/Card';
 import { toast } from 'react-toastify';
 
 const MainContent: React.FC = () => {
+  // State to store the fetched card data
   const [cardsData, setCardsData] = useState<ICardData[] | null>(null);
 
   useEffect(() => {
+    // Function to fetch data and set it in the state
     const fetchData = async () => {
       try {
+        // Fetch posts data from the cardService
         const fetchedPosts = await getPosts();
+
+        // Set the fetched data in the state
         setCardsData(fetchedPosts);
       } catch (error) {
-        // Handle errors here
+        // Handle errors here by displaying a toast notification
         toast.error('Error fetching posts');
       }
     };
 
+    // Call the fetchData function when the component mounts
     fetchData();
   }, []);
-
   return (
     <main className="container mx-auto my-8 p-4">
       <h2 className="text-2xl font-semibold">Welcome to our Fake Website</h2>
