@@ -2,6 +2,7 @@ import React, { createContext, Dispatch, ReactNode, SetStateAction, useEffect, u
 import { decryptData, encryptData } from '../utils/utils';
 import { v4 as uuidv4 } from 'uuid';
 import { Conversation } from '../models/Message';
+import { ENCRYPTION_KEY } from '../constants';
 
 type LocalCustomData = {
   chatId: string | null;
@@ -35,13 +36,13 @@ function UserDataProvider({ children }: UserDataProviderProps): React.ReactEleme
   const [conversation, setConversation] = useState<Conversation>(() => (returnLocalData('conversation') as Conversation) || []);
 
   useEffect(() => {
-    if (process.env.REACT_APP_NOT_SECRET_CODE) {
+    if (ENCRYPTION_KEY) {
       localStorage.setItem('user_data', encryptData(JSON.stringify({ chatId, conversation })));
     }
   }, [chatId, conversation]);
 
   useEffect(() => {
-    if (process.env.REACT_APP_NOT_SECRET_CODE) {
+    if (ENCRYPTION_KEY) {
       const data = localStorage.getItem('user_data');
       if (data) {
         const decryptedData: LocalCustomData = JSON.parse(decryptData(data));
