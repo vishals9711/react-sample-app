@@ -58,4 +58,4 @@ chmod +x build_script.sh
 ```
 
 This will build the frontend, backend, deploy to server, and make available at port 5001.
-http://localhost:5001
+http://localhost:5000
