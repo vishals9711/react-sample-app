@@ -7,6 +7,7 @@ import ChatBot from './components/Chatbot/ChatBot';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+// Change this to your websocket server url
 const socketUrl = `${window.location.protocol}//${window.location.hostname}:5001/`;
 
 console.log('socketUrl:: ', socketUrl);
@@ -14,8 +15,6 @@ console.log('socketUrl:: ', socketUrl);
 export const socket = io(socketUrl, {
   transports: ['websocket'],
 });
-
-console.log('socket:: ', socket);
 
 const App = () => {
   useEffect(() => {
@@ -25,9 +24,9 @@ const App = () => {
     socket.on('disconnect', () => {
       console.log('disconnected');
     });
-    // return () => {
-    //   socket.disconnect();
-    // };
+    return () => {
+      socket.disconnect();
+    };
   }, []);
   return (
     <UserDataProvider>

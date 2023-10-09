@@ -38,7 +38,15 @@ function ChatBot(): React.ReactElement {
     ]);
     setInput('');
     try {
-      await chat(chatID || '', socket.id, prevConversation || [], input);
+      if (!chatID) {
+        toast.error('Chat ID is not defined');
+        return;
+      }
+      if (!socket.id) {
+        toast.error('Socket ID is not defined');
+        return;
+      }
+      await chat(chatID, socket.id, prevConversation || [], input);
       setChatEndpointIsLoading(false);
     } catch (error) {
       toast('Error from Server try again', {

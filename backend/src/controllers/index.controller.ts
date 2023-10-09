@@ -12,14 +12,13 @@ class IndexController {
     const socketId = body.socketId;
     const chatId = body.chatId;
 
-    if (!messages || !socketId || !chatId) {
-      throw new Error('No messages or chatId provided');
-    }
     try {
+      if (!messages || !socketId || !chatId) {
+        throw new Error('No messages or chatId provided');
+      }
       await this.indexService.chatService(messages, socketId, chatId);
     } catch (error) {
       io.emit('resError', { chatID: chatId, content: 'Error occured' });
-      console.log(error);
       logger.error(error);
       next(error);
     }
